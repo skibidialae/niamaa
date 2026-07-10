@@ -31,10 +31,10 @@ if st.session_state.current_page == "🎂 Birthday message":
         # Adds vertical spacing to push the picture down slightly for that lopsided feel
         st.write("## ")
         try:
+            # Clean server path to load directly from GitHub repository
             st.image("IMG_3086 (1).jpg", use_container_width=True)
         except Exception:
-            # Dual-path safety fallback check for the Downloads folder
-            st.image("IMG_3086 (1).jpg", use_container_width=True)
+            st.error("Princess picture missing on the server! Double check the filename.")
 
     with text_col:
         st.subheader("To the Birthday Princess ≽^• ˕ • ྀི≼")
@@ -142,9 +142,21 @@ elif st.session_state.current_page == "🎮 Quiz":
             st.success(f"ദ്ദി ˉ͈̀꒳ˉ͈́ ) {current_question['correct_msg']}")
             st.info(f"🔥 Streak: {st.session_state.streak}")
             
-            # Triggers a massive confetti shower if she gets a perfect clean streak of 3!
+            # Triggers a beautiful colorful confetti explosion when her streak hits a multiple of 3!
             if st.session_state.streak % 3 == 0:
-                st.snow()
+                st.components.v1.html(
+                    """
+                    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+                    <script>
+                        window.parent.confetti({
+                            particleCount: 150,
+                            spread: 80,
+                            origin: { y: 0.6 }
+                        });
+                    </script>
+                    """,
+                    height=0,
+                )
         else:
             st.session_state.streak = 0
             st.error(current_question["wrong_msg"])
@@ -154,7 +166,7 @@ elif st.session_state.current_page == "🎮 Quiz":
         st.session_state.current_q_idx += 1
         st.rerun()
 
-    # --- UPDATED INTERACTIVE SIDEBAR DISPLAY ---
+    # --- INTERACTIVE SIDEBAR DISPLAY ---
     st.sidebar.markdown("---")
     
     if st.session_state.streak == 0:
