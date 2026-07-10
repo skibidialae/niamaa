@@ -34,7 +34,7 @@ if st.session_state.current_page == "🎂 Birthday message":
             st.image("IMG_3086 (1).jpg", use_container_width=True)
         except Exception:
             # Dual-path safety fallback check for the Downloads folder
-            st.image(r"C:\Users\PC\Downloads\IMG_3086 (1).jpg", use_container_width=True)
+            st.image("IMG_3086 (1).jpg", use_container_width=True)
 
     with text_col:
         st.subheader("To the Birthday Princess ≽^• ˕ • ྀི≼")
